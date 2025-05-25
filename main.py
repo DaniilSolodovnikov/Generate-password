@@ -6,11 +6,11 @@ app = Flask(__name__)
 
 
 def generate_password(length=12, use_digits=True, use_specials=True):
-    chars = string.ascii_letters
+    chars = string.ascii_letters #Список
     if use_digits:
-        chars += string.digits
+        chars += string.digits #Добавляем цифры
     if use_specials:
-        chars += string.punctuation
+        chars += string.punctuation #Добавляем спецсимволы
     return ''.join(random.choice(chars) for _ in range(length))
 
 
@@ -18,9 +18,9 @@ def generate_password(length=12, use_digits=True, use_specials=True):
 def index():
     password = ""
     if request.method == 'POST':
-        length = int(request.form.get('length', 12))
-        use_digits = 'digits' in request.form
-        use_specials = 'specials' in request.form
+        length = int(request.form.get('length', 12)) #Получение длины парооля
+        use_digits = 'digits' in request.form #Проверяем выбраны ли цифры
+        use_specials = 'specials' in request.form #Проверяем выбраны ли спецсимволы
         password = generate_password(length, use_digits, use_specials)
     return render_template('index.html', password=password)
 
